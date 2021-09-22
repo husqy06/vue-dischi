@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <img :src="info.image" alt="">
+  <div class="card">
+    <img :src="info.poster" alt="">
+    <span class="title">{{ info.title }}</span>
+    <span class="subtitle">{{ info.author }}</span>
+    <span class="subtitle">{{ info.year }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Card',
-  props: ['info']
+  props: ['info'],
 }
 </script>
 

@@ -6,7 +6,7 @@
 
 <script>
 
-import CardList from './components/CardList.vue'
+import CardList from './CardList.vue'
 
 export default {
   name: 'Main',

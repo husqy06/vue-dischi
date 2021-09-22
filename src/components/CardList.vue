@@ -1,13 +1,12 @@
 <template>
   <section class="container">
-    <Card :info='card'/>
-
+    <Card :info='card' v-for="(card,index) in cardlist" :key="index"/>
   </section>
 </template>
 
 <script>
 import axios from 'axios';
-import Card from './card.vue';
+import Card from './Card.vue';
 
 export default {
   name: 'Cardlist',
@@ -20,17 +19,12 @@ export default {
       cardlist: []
     }
   },
-  created() {
-    this.getCards();
-  },
-  methods: {
-    getCards() {
-      axios
+  mounted() {
+    axios
           .get(this.APIUrl)
           .then( res => {
-            this.cardlist = res.data;
+            this.cardlist = res.data.response;
           })
-    }
   }
 }
 </script>
