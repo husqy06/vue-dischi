@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
-    <Main/>
+    <Header @filterSelected="onfilterSelected"/>
+    <Main :filter="filter"/>
   </div>
 </template>
 
@@ -14,6 +14,16 @@ export default {
   components: {
     Header,
     Main,
+  },
+  data() {
+    return {
+      filter: ""
+    }
+  },
+  methods: {
+    onfilterSelected(value) {
+      this.filter = value;
+    }
   }
 }
 </script>

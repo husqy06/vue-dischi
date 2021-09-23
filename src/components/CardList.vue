@@ -1,7 +1,7 @@
 <template>
-  <section class="container">
-    <div v-if="!loading">
-      <Card :info='card' v-for="(card,index) in cardlist" :key="index"/>
+  <section>
+    <div v-if="!loading" class="container">
+      <Card :info='card' v-for="(card,index) in getFilterCards()" :key="index"/>
     </div>
     <Loader v-else />
   </section>
@@ -18,6 +18,7 @@ export default {
     Card,
     Loader
   },
+  props: ["filter"],
   data() {
     return {
       APIUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
@@ -35,11 +36,24 @@ export default {
           .then( res => {
             this.cardlist = res.data.response;
             setTimeout( () => {this.loading = false;},2000)
+            console.log(res.data.response)
           })
           .catch(err => {
             console.log("Error ",err);
-          })
-    }
+          })    
+    },
+    getFilterCards() {
+      if(this.filter === ""){
+        return this.cardlist
+      }
+
+      const filterCards = [];
+      for(let i in this.cardlist) {
+        if(this.cardlist[i].genre === this.filter)
+        filterCards.push(this.cardlist[i])
+      }
+      return filterCards;
+    } 
     
   }
 }

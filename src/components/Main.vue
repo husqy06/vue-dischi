@@ -1,6 +1,6 @@
 <template>
   <main>
-    <CardList/>
+    <CardList :filter="filter"/>
   </main>
 </template>
 
@@ -13,6 +13,7 @@ export default {
   components: {
     CardList
   },
+  props: ['filter'],
 }
 </script>
 
