@@ -1,30 +1,46 @@
 <template>
   <section class="container">
-    <Card :info='card' v-for="(card,index) in cardlist" :key="index"/>
+    <div v-if="!loading">
+      <Card :info='card' v-for="(card,index) in cardlist" :key="index"/>
+    </div>
+    <Loader v-else />
   </section>
 </template>
 
 <script>
 import axios from 'axios';
 import Card from './Card.vue';
+import Loader from './Loader.vue';
 
 export default {
   name: 'Cardlist',
   components: {
-    Card
+    Card,
+    Loader
   },
   data() {
     return {
       APIUrl: 'https://flynn.boolean.careers/exercises/api/array/music',
-      cardlist: []
+      cardlist: [],
+      loading: true
     }
   },
-  mounted() {
-    axios
+  created() {
+    this.getCard();
+  },
+  methods: {
+    getCard() {
+      axios
           .get(this.APIUrl)
           .then( res => {
             this.cardlist = res.data.response;
+            setTimeout( () => {this.loading = false;},2000)
           })
+          .catch(err => {
+            console.log("Error ",err);
+          })
+    }
+    
   }
 }
 </script>
